@@ -39,4 +39,4 @@ rm(ausplots_sites, ausplots_site_species, species_flowering_time,
 # Analyses
 source("scripts/analyses/ausplots_sampling_by_biome_area.R") #regress biome area vs number of AusPlots, results in figure
 source("scripts/analyses/CWM_regressions.R") #main community weighted mean and species niche centroid regression analyses
-
+source("scripts/analyses/species_regressions.R")
