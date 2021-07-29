@@ -18,8 +18,8 @@ source("scripts/cache_csv.R")
 source("scripts/do_regression.R")
 
 # Data
-source("scripts/ausplots_sites.R")
-source("scripts/ausplots_site_species.R")
+source("scripts/ausplots_sites.R") #requires internet connection for fresh run
+source("scripts/ausplots_site_species.R") #requires internet connection and takes a while for fresh run
 source("scripts/species_flowering_time.R")
 source("scripts/species_woodiness.R")
 source("scripts/site_species_unfiltered.R")
