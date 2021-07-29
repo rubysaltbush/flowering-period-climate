@@ -33,13 +33,13 @@ vignettes/*.pdf
 
 # Temporary files created by R markdown
 *.utf8.md
+*.knit.md
+
+# R Environment Variables
+.Renviron
 
 # macOS directory file
 .DS_Store
 
 # data cache folder for local caching of data files
 /data_cache
-*.knit.md
-
-# R Environment Variables
-.Renviron
