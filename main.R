@@ -37,4 +37,4 @@ rm(ausplots_sites, ausplots_site_species, species_flowering_time,
    species_woodiness, site_species_unfiltered, cache_csv)
 
 # Analyses
-source("scripts/analyses/ausplots_sampling_by_biome_area.R")
+source("scripts/analyses/ausplots_sampling_by_biome_area.R") #regress biome area vs number of AusPlots, results in figure
