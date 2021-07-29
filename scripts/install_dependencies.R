@@ -10,6 +10,7 @@ install.packages("rstatix")    # used in anova
 install.packages("sf")         # mapping
 install.packages("tidyverse")  # data functions
 install.packages("rgdal")      # loading shapefiles
+install.packages("ggpubr")     # publication ready theme theme_pubr
 
 library(devtools)
 

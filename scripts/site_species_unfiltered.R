@@ -32,11 +32,11 @@ site_species_unfiltered <- cache_csv("data_cache/site_species_unfiltered.csv", f
   
   #create histogram of flowering time trait coverage at sites
   ggplot(data.frame(flowertime_sites$site_prop_flowertime), aes(x = flowertime_sites$site_prop_flowertime)) +
-    geom_histogram(fill="#C77CFF", color="grey50") +
-    xlab("Proportion of angiosperm species cover with matching flowering period trait data") +
+    geom_histogram() +
+    xlab("Proportion of angiosperm species cover with flowering period trait data") +
     ylab("Number of AusPlots") +
-    theme_minimal()
-  ggsave("figures/flowering time trait cover.png", width = 6.3, height = 3.6)
+    theme_pubr()
+  ggsave("figures/flowering time trait cover.png", width = 7, height = 3.6)
   
   #join back onto vegcover data
   site_species_unfiltered <- site_species_unfiltered %>%
