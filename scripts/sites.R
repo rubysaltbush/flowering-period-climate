@@ -39,7 +39,7 @@ sites <- cache_csv("data_cache/sites.csv", function(){
   distances <- sf::st_distance(sites, sites)
   distances <- apply(distances, 2, sort)
   sites$nearest_site_km <- distances[2,]/1000
-  #SOME SITES ARE <100m apart!?!?!?
+  #SOME SITES ARE <100m apart
   paste(nrow(sites[sites$nearest_site_km < 0.5,]), "sites are less than 500 metres from their nearest site")
   #drop one site from each of pair of sites <500 metres apart
   #retaining sites with highest species richness where possible
@@ -141,8 +141,8 @@ sites <- cache_csv("data_cache/sites.csv", function(){
   climate_data <- sf::st_as_sf(climate_data, coords = c("longitude","latitude"))
   st_crs(climate_data) <- 4326
   climate_data$mask_AWAP <- extract(mask_AWAP, climate_data)
-  ggplot() +
-    geom_sf(data = climate_data, aes(colour = mask_AWAP))
+  #ggplot() +
+    #geom_sf(data = climate_data, aes(colour = mask_AWAP))
   rm(mask_AWAP)
   #coordinates(climate_data) <- c("longitude", "latitude")
   #projection(climate_data) <- CRS("+proj=longlat +ellps=WGS84")
@@ -164,14 +164,14 @@ sites <- cache_csv("data_cache/sites.csv", function(){
   paste(sum(is.na(sites$MAP)), "sites missing MAP data")
   paste(sum(is.na(sites$MAT)), "sites missing MAT data")
   #52 sites now missing data for all measures now mask applied
-  ggplot() +
-    geom_sf(data = sites, aes(colour = prec_predictability))
+  #ggplot() +
+    #geom_sf(data = sites, aes(colour = prec_predictability))
   #sites missing data look to be in right place
   
   #log transform precipitation variables
-  plot(sites$MAP)
+  #plot(sites$MAP)
   sites$log10MAP <- log10(sites$MAP)
-  plot(sites$log10MAP)
+  #plot(sites$log10MAP)
   
   sites
 })

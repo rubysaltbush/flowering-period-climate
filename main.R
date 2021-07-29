@@ -18,17 +18,20 @@ options(scipen = 300) #set scientific numbers only for huge numbers
 source("scripts/cache_csv.R")
 source("scripts/do_regression.R")
 
-# Data
-source("scripts/ausplots_sites.R") #requires internet connection
-source("scripts/ausplots_site_species.R") #requires internet connection and takes a while
-source("scripts/species_flowering_time.R")
-source("scripts/species_woodiness.R")
-source("scripts/site_species_unfiltered.R")
-source("scripts/sites.R")
-source("scripts/site_species.R")
-source("scripts/species_niche_centroids.R")
-source("scripts/niche.R")
-source("scripts/range.R")
-source("scripts/species.R")
-source("scripts/species_biome.R")
-source("scripts/colour_scales.R")
+# Preparatory data
+source("scripts/ausplots_sites.R") #needs internet. All site data from TERN AusPlots.
+source("scripts/ausplots_site_species.R") #needs internet, takes a while. All species-in-site occurrence data from AusPlots, with taxonomic matching.
+source("scripts/species_flowering_time.R") #flowering period data from AusTraits and other sources
+source("scripts/species_woodiness.R") #woodiness data curated from AusTraits
+source("scripts/site_species_unfiltered.R") #species-in-sites with trait data, filtered by trait coverage only
+
+# Final data
+source("scripts/sites.R") #site and climate data filtered by site locations
+source("scripts/site_species.R") #species-in-sites, traits, site and climate data, filtered by all above filters
+source("scripts/species_all.R") #species with species-niche-centroids, trait data and range (EOO)
+#source("scripts/species_biome.R") #species by biome of occurrence MAYBE DON"T NEED THIS?
+source("scripts/colour_scales.R") #colour scales for graphs
+
+# Remove preparatory data and cache_csv function
+rm(ausplots_sites, ausplots_site_species, species_flowering_time,
+   species_woodiness, site_species_unfiltered, cache_csv)
