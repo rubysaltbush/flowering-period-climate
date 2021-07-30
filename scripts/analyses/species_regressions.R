@@ -11,20 +11,40 @@ regressions_todo <- list(
   )
 )
 
+#prep empty list for results and df for result table
 speciesregs <- data.frame()
 speciesregressions <- list()
-for (regressionName in names(regressions_todo)) {
-  todo <- regressions_todo[[regressionName]]
-  speciesregressions[[regressionName]] <- do_regression(
+#loop over regressions_todo, perform linear regression and output graphs
+for (regression_name in names(regressions_todo)) {
+  todo <- regressions_todo[[regression_name]]
+  speciesregressions[[regression_name]] <- do_regression(
     xdata = todo$xdata,
     ydata = todo$ydata,
     xlabel = todo$xlabel,
     ylabel = todo$ylabel,
     output_path = todo$output_path
   )
-  speciesregs <- rbind(speciesregs, broom::glance(speciesregressions[[regressionName]]))
+  new_row <- broom::glance(speciesregressions[[regression_name]])
+  new_row$slope <- speciesregressions[[regression_name]]$coefficients[[2]]
+  new_row$regression_name <- regression_name
+  speciesregs <- rbind(speciesregs, new_row)
 }
-speciesregs$regressions <- names(regressions_todo)
+
 write_csv(speciesregs, "data_output/species_regression_results.csv")
 
-rm(regressionName, regressions_todo, speciesregressions, speciesregs)
+#graph of monthsCount versus extent of occurrence (EOO)
+ggplot(species_all, aes(y = eoo_aus, x = monthsCount)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, colour = "red") +
+  theme_pubr() +
+  scale_x_continuous(breaks = seq(1, 12, by=1), limits=c(1,12)) +
+  ylab("Extent of Occurrence (km²)") +
+  xlab("Species length of flowering period (months)") +
+  theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14)) +
+  labs(title = paste("R² = ", signif(summary(speciesregressions$lmeoo_months)$r.squared, 2),
+                     "    P = ", format.pval(summary(speciesregressions$lmeoo_months)$coef[2,4], eps = .001, digits = 2)))
+
+ggsave("figures/Fig 5 species flowering period vs eoo.png", width = 10, height = 6)
+
+rm(regression_name, regressions_todo, speciesregressions, speciesregs, new_row, todo)
+
