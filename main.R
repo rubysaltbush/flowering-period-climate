@@ -41,5 +41,6 @@ source("scripts/analyses/ausplots_sampling_by_biome_area.R") #regress biome area
 source("scripts/analyses/CWM_regressions.R") #main community weighted mean and species niche centroid regression analyses, outputs results and graphs
 source("scripts/analyses/species_regressions.R") #species level regression, output results and graph
 rm(do_regression)
-source("scripts/analyses/woodiness_ttests.R")
+source("scripts/analyses/woodiness_ttests.R") #tests of woody vs herbaceous species
+source("scripts/analyses/biome_anova.R")
 
