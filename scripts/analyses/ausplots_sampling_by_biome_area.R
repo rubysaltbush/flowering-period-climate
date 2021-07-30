@@ -36,5 +36,5 @@ ggplot(biome_area, aes(x = area_km2, y = no_sites)) +
   labs(title = paste("R² = ", signif(summary(biomereg)$r.squared, 2),
                      "    P = ", format.pval(summary(biomereg)$coef[2,4], 
                                              eps = .001, digits = 2)))
-ggsave("figures/ausplots sampling by biome area.png", width = 9, height = 4)
+ggsave("figures/Fig S2 ausplots sampling by biome area.png", width = 9, height = 4)
 rm(biome_area, biomereg)

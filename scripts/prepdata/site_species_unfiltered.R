@@ -36,7 +36,7 @@ site_species_unfiltered <- cache_csv("data_cache/site_species_unfiltered.csv", f
     xlab("Proportion of angiosperm species cover with flowering period trait data") +
     ylab("Number of AusPlots") +
     theme_pubr()
-  ggsave("figures/flowering time trait cover.png", width = 7, height = 3.6)
+  ggsave("figures/Fig S1 flowering time trait cover.png", width = 7, height = 3.6)
   
   #join back onto vegcover data
   site_species_unfiltered <- site_species_unfiltered %>%
