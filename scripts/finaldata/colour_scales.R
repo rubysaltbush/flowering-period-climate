@@ -9,12 +9,12 @@ names(my_colours) <- c("Deserts and Xeric Shrublands",
                        "Temperate Grasslands, Savannas and Shrublands",
                        "Tropical and Subtropical Grasslands, Savannas and Shrublands",
                        "Tropical and Subtropical Moist Broadleaf Forests")
-colour_scales$biomeall <- scale_fill_manual(name = "biome", values = my_colours)
-colour_scales$biomecolall <- scale_colour_manual(name = "biome", values = my_colours)
+colour_scales$biomeall <- scale_fill_manual(name = "Biome", values = my_colours)
+colour_scales$biomecolall <- scale_colour_manual(name = "Biome", values = my_colours)
 #drop unsampled biome so it doesn't show up on graphs
 my_colours <- my_colours[1:6]
-colour_scales$biome <- scale_fill_manual(name = "biome", values = my_colours)
-colour_scales$biomecol <- scale_colour_manual(name = "biome", values = my_colours)
+colour_scales$biome <- scale_fill_manual(name = "Biome", values = my_colours)
+colour_scales$biomecol <- scale_colour_manual(name = "Biome", values = my_colours)
 
 #assign fixed colour scale to families
 my_colours <- c("#B76890", "#68A353", "#8282B3", "#E5874D", "#C25F5C",

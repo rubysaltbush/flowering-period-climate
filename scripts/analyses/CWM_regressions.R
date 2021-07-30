@@ -137,34 +137,89 @@ regressions_todo <- list(
   )
 )
 
-regressions <- list()
-regresults <- data.frame()
-for (regressionName in names(regressions_todo)) {
-  todo <- regressions_todo[[regressionName]]
-  regressions[[regressionName]] <- do_regression(
+#create list to store regression output
+CWMregressions <- list()
+#create data frame for regression results table
+CWMregresults <- data.frame()
+
+#loop over each climate variable, perform linear regression and output graphs and results
+for (regression_name in names(regressions_todo)) {
+  todo <- regressions_todo[[regression_name]]
+  CWMregressions[[regression_name]] <- do_regression(
     xdata = todo$xdata,
     ydata = todo$ydata,
     xlabel = todo$xlabel,
     ylabel = todo$ylabel,
     output_path = todo$output_path
   )
-  regresults <- rbind(regresults, broom::glance(regressions[[regressionName]]))
+  new_row <- broom::glance(CWMregressions[[regression_name]])
+  new_row$slope <- CWMregressions[[regression_name]]$coefficients[[2]]
+  new_row$regression_name <- regression_name
+  CWMregresults <- rbind(CWMregresults, new_row)
 }
-regresults$regressions <- names(regressions_todo)
 
-#add slope regression results
-regresults$slope <- rbind(regressions$lmMATCWM$coef[[2]], regressions$lmMATSNC$coef[[2]],
-                          regressions$lmMAPCWM$coef[[2]], regressions$lmMAPSNC$coef[[2]],
-                          regressions$lmlog10MAPCWM$coef[[2]], regressions$lmlog10MAPSNC$coef[[2]],
-                          regressions$lmprecpredCWM$coef[[2]], regressions$lmprecpredSNC$coef[[2]],
-                          regressions$lmpreccontCWM$coef[[2]], regressions$lmpreccontSNC$coef[[2]],
-                          regressions$lmprecconsCWM$coef[[2]], regressions$lmprecconsSNC$coef[[2]],
-                          regressions$lmtemppredCWM$coef[[2]], regressions$lmtemppredSNC$coef[[2]],
-                          regressions$lmtempcontCWM$coef[[2]], regressions$lmtempcontSNC$coef[[2]],
-                          regressions$lmtempconsCWM$coef[[2]], regressions$lmtempconsSNC$coef[[2]])
+write_csv(CWMregresults, "data_output/CWM_regression_results.csv")
+rm(regression_name, todo, regressions_todo, new_row)
 
-#actually confused now about t statistics - there are multiple per lm???
+##REGRESSION GRAPHS##
+# plot of CWM MAT - higher p value for CWM than SNC
+ggplot(sites, aes(x = MAT, y = monthsCount_CWM)) +
+  geom_point(aes(colour = Biome, shape = Biome)) +
+  geom_smooth(method = "lm", se = FALSE, colour = "black") +
+  theme_pubr(legend = "right") +
+  scale_y_continuous(breaks = seq(1, 12, by=1), limits=c(1,12)) +
+  colour_scales$biomecol +
+  scale_shape_manual(values=c(15,16,17,18,15,17,18)) +
+  xlab("Mean Annual Temperature (ºC)") +
+  ylab("CWM length of flowering period (months)") +
+  theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14)) +
+  labs(title = paste("R² = ", signif(summary(CWMregressions$lmMATCWM)$r.squared, 2),
+                     "    Pmax = ", format.pval(summary(CWMregressions$lmMATCWM)$coef[2,4], eps = .001, digits = 2)))
+ggsave("figures/Fig 3 CWM flowering period vs MAT with biomes.png", width = 10, height = 6)
 
-write_csv(regresults, "data_output/CWM_regression_results.csv")
+# plot of CWM log10MAP - log10 transformation much better than raw values
+ggplot(sites, aes(x = log10MAP, y = monthsCount_CWM)) +
+  geom_point(aes(colour = Biome, shape = Biome)) +
+  geom_smooth(method = "lm", se = FALSE, colour = "black") +
+  theme_pubr(legend = "right") +
+  scale_y_continuous(breaks = seq(1, 12, by=1), limits=c(1,12)) +
+   colour_scales$biomecol +
+  scale_shape_manual(values=c(15,16,17,18,15,17,18)) +
+  xlab("Log10 Mean Annual Precipitation (mm)") +
+  ylab("CWM length of flowering period (months)") +
+  theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14)) +
+  labs(title = paste("R² = ", signif(summary(CWMregressions$lmlog10MAPCWM)$r.squared, 2),
+                     "    Pmax = ", format.pval(summary(CWMregressions$lmlog10MAPSNC)$coef[2,4], eps = .001, digits = 2)))
+ggsave("figures/Fig 3 CWM flowering period vs log10MAP with biomes.png", width = 10, height = 6)
 
-rm(regressionName, regresults, regressions, todo, regressions_todo)
+#pretty plot of CWM precipitation predictability
+ggplot(sites, aes(x = prec_predictability, y = monthsCount_CWM)) +
+  geom_point(aes(colour = Biome, shape = Biome)) +
+  geom_smooth(method = "lm", se = FALSE, colour = "black") +
+  theme_pubr(legend = "right") +
+  scale_y_continuous(breaks = seq(1, 12, by=1), limits=c(1,12)) +
+  colour_scales$biomecol +
+  scale_shape_manual(values=c(15,16,17,18,15,17,18)) +
+  xlab("Precipitation predictability") +
+  ylab("CWM length of flowering period (months)") +
+  theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14)) +
+  labs(title = paste("R² = ", signif(summary(CWMregressions$lmprecpredCWM)$r.squared, 2),
+                     "    Pmax = ", format.pval(summary(CWMregressions$lmprecpredSNC)$coef[2,4], eps = .001, digits = 2)))
+ggsave("figures/Fig 3 CWM flowering period vs precipitation predictability with biomes.png", width = 10, height = 6)
+
+#pretty plot of CWM temperature predictability
+ggplot(sites, aes(x = temp_predictability, y = monthsCount_CWM)) +
+  geom_point(aes(colour = Biome, shape = Biome)) +
+  geom_smooth(method = "lm", se = FALSE, colour = "black") +
+  theme_pubr(legend = "right") +
+  scale_y_continuous(breaks = seq(1, 12, by=1), limits=c(1,12)) +
+  colour_scales$biomecol +
+  scale_shape_manual(values=c(15,16,17,18,15,17,18)) +
+  xlab("Temperature predictability") +
+  ylab("CWM length of flowering period (months)") +
+  theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14)) +
+  labs(title = paste("R² = ", signif(summary(CWMregressions$lmtemppredCWM)$r.squared, 2),
+                     "    Pmax = ", format.pval(summary(CWMregressions$lmtemppredSNC)$coef[2,4], eps = .001, digits = 2)))
+ggsave("figures/Fig 3 CWM flowering period vs temperature predictability with biomes.png", width = 10, height = 6)
+
+rm(CWMregressions, CWMregresults)

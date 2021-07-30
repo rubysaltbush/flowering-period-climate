@@ -28,7 +28,7 @@ sites <- cache_csv("data_cache/sites.csv", function(){
     dplyr::slice_max(order_by = no_species, with_ties = FALSE)
   rm(sitedupes)
   
-  #now also check - what is the distance between sites?
+  #check distance between sites
   #first duplicate latitude/longitude columns so I don't lose these
   sites <- sites %>%
     dplyr::mutate(long = longitude, lat = latitude)
@@ -63,11 +63,6 @@ sites <- cache_csv("data_cache/sites.csv", function(){
   }
   rm(todrop, distances)
   
-  #NOT removing sites with low species richness as these (by definition) still represent a high
-  #proportion of cover at these sites - they are just not very diverse locations!
-  paste("species richness cutoff of 5 species would remove",
-        nrow(filter(sites, no_species <= 5)), "sites")
-  
   ##########COMMUNITY WEIGHTED MEANS###########
   #calculate 'community weighted means' (CWMs) by multiplying species proportional
   #abundances by matched trait values
@@ -82,7 +77,7 @@ sites <- cache_csv("data_cache/sites.csv", function(){
     dplyr::summarise(monthsCount_CWV = Hmisc::wtd.var(monthsCount, flowertime_weight, normwt = TRUE))
   #wtd.var function returns NaN for sites with only 1 species
   #(because dividing by n-1 = dividing by zero in these cases)
-  #replace NaN with zero, as variance for these sites is zero (only 1 observation!)
+  #replace NaN with zero, as variance for these sites is zero (only 1 observation)
   monthsCount_CWV$monthsCount_CWV[is.na(monthsCount_CWV$monthsCount_CWV)] = 0
   
   #join CWM and CWV to site info
@@ -95,26 +90,21 @@ sites <- cache_csv("data_cache/sites.csv", function(){
   #read in detailed biome shapefile, don't use for imaging but do use
   #for any spatial manipulations
   biome_sf <- sf::st_read("data_input/ibra7_biomes.shp")
-  #make spatially valid as update detects geometry errors in shapefile
+  #make spatially valid
   biome_sf <- sf::st_make_valid(biome_sf)
   #add attributes from biome shapefile to sites by location intersect
   sites <- sf::st_join(sites, biome_sf)
   #get rid of non-useful columns
-  sites <- dplyr::select(sites, site_unique, monthsCount_CWM,
-                         monthsCount_CWV,
-                         no_species, state, biome,
-                         established_date, visit_start_date,
-                         location_description, bioregion_name,
-                         site_location_name, latitude:longitude,
-                         nearest_site_km, geometry)
+  sites <- dplyr::select(sites, site_unique, monthsCount_CWM, monthsCount_CWV, 
+                         no_species, state, Biome = biome, established_date, 
+                         visit_start_date, location_description, bioregion_name,
+                         site_location_name, latitude:longitude, nearest_site_km, 
+                         geometry)
   rm(biome_sf)
   #check how many sites in each biome
-  table(sites$biome)
-  #and how many in each state?
+  table(sites$Biome)
+  #and how many in each state
   table(sites$state)
-  #removing duplicate and <500m apart sites has reduced montane grasslands from
-  #14 to 12 sites, not too bad, and sampling looks a bit more evenly distributed
-  #between states at least
   
   #read in environmental data for each site
   #Jiang Mingkai's AWAP 1930-2018 rainfall predictability data - ~5km resolution
@@ -135,20 +125,15 @@ sites <- cache_csv("data_cache/sites.csv", function(){
   climate_data <- prec_predictability %>%
     dplyr::left_join(temp_predictability, by = "site_unique")
   rm(temp_predictability, prec_predictability)
+  
   #read in mask to remove potentially unreliable climate scores
   mask_AWAP <- raster("data_input/mask_AWAP.tif")
   #join mask scores from raster to climate_data by longitude and latitude of locations
   climate_data <- sf::st_as_sf(climate_data, coords = c("longitude","latitude"))
   st_crs(climate_data) <- 4326
   climate_data$mask_AWAP <- extract(mask_AWAP, climate_data)
-  #ggplot() +
-    #geom_sf(data = climate_data, aes(colour = mask_AWAP))
   rm(mask_AWAP)
-  #coordinates(climate_data) <- c("longitude", "latitude")
-  #projection(climate_data) <- CRS("+proj=longlat +ellps=WGS84")
-  #spplot(climate_data, "mask_AWAP")
-  
-  #remove sites with 0 value (~60 from whole list of 810)
+  #remove masked sites with 0 value (~60 from whole list of 810) from climate data
   climate_data <- climate_data %>%
     dplyr::filter(mask_AWAP == 1)
   
@@ -164,14 +149,9 @@ sites <- cache_csv("data_cache/sites.csv", function(){
   paste(sum(is.na(sites$MAP)), "sites missing MAP data")
   paste(sum(is.na(sites$MAT)), "sites missing MAT data")
   #52 sites now missing data for all measures now mask applied
-  #ggplot() +
-    #geom_sf(data = sites, aes(colour = prec_predictability))
-  #sites missing data look to be in right place
   
   #log transform precipitation variables
-  #plot(sites$MAP)
   sites$log10MAP <- log10(sites$MAP)
-  #plot(sites$log10MAP)
   
   sites
 })

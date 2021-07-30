@@ -1,3 +1,4 @@
+#checking whether smapling of biomes proportional to size of biome
 # first read in biomes shapefile
 biome_sf <- sf::st_read("data_input/ibra7_biomes.shp")
 # make spatially valid
@@ -6,12 +7,12 @@ biome_sf <- sf::st_make_valid(biome_sf)
 biome_area <- as.data.frame(biome_sf$biome)
 biome_area$area <- sf::st_area(biome_sf)
 biome_area$area_m2 <- as.numeric(biome_area$area)
-biome_area <- dplyr::select(biome_area, biome = `biome_sf$biome`, area_m2)
+biome_area <- dplyr::select(biome_area, Biome = `biome_sf$biome`, area_m2)
 #get number of analysis ausplots per biome
-biomesites <- aggregate(sites$site_unique, list(sites$biome), length)
-colnames(biomesites) <- c("biome", "no_sites")
+biomesites <- aggregate(sites$site_unique, list(sites$Biome), length)
+colnames(biomesites) <- c("Biome", "no_sites")
 biome_area <- biome_area %>%
-  dplyr::left_join(biomesites, by = "biome")
+  dplyr::left_join(biomesites, by = "Biome")
 biome_area[is.na(biome_area)] <- 0
 rm(biomesites, biome_sf)
 
@@ -25,7 +26,7 @@ biomereg <- lm(biome_area$area_km2 ~ biome_area$no_sites)
 summary(biomereg)
 #plot biome area vs number of sites in each biome
 ggplot(biome_area, aes(x = area_km2, y = no_sites)) +
-  geom_point(size = 3, aes(colour = biome, shape = biome)) +
+  geom_point(size = 3, aes(colour = Biome, shape = Biome)) +
   ylab("Number of AusPlots") +
   xlab(expression("Biome area (km"^2*")")) +
   theme_pubr(legend = "right") +
