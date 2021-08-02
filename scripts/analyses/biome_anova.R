@@ -1,16 +1,21 @@
 #ANOVA test to compare difference between flowering period lengths in biomes
 anova <- list()
-#first Bartlett test for homogeneity of variance (sample size v unequal)
-anova$bartlett <- bartlett.test(monthsCount_CWM ~ biome, data = sites)
+#first Bartlett test for homogeneity of variance (sample size very unequal)
+anova$bartlett <- bartlett.test(monthsCount_CWM ~ Biome, data = sites)
+anova$bartlett
 #p value <0.05, unequal variances, use Welch's ANOVA
-anova$welch <- oneway.test(monthsCount_CWM ~ biome, data = sites, var.equal = FALSE)
+anova$welch <- oneway.test(monthsCount_CWM ~ Biome, data = sites, var.equal = FALSE)
+anova$welch
 #ANOVA significant, use Games-Howell post-hoc test
 anova$posthoc <- sites %>%
-  dplyr::select(monthsCount_CWM, biome) %>%
+  dplyr::select(monthsCount_CWM, Biome) %>%
   as.data.frame() %>%
-  rstatix::games_howell_test(monthsCount_CWM ~ biome, conf.level = 0.95, detailed = FALSE)
+  rstatix::games_howell_test(monthsCount_CWM ~ Biome, conf.level = 0.95, detailed = FALSE)
+anova$posthoc
 
-#how to output ANOVA results?
+#output ANOVA results
+write_csv(broom::glance(anova$welch), "data_output/anova_results.csv")
+write_csv(anova$posthoc, "data_output/anova_posthoc_results.csv")
 
 # Graphs
 

@@ -1,0 +1,2 @@
+num.df,den.df,statistic,p.value,method
+5,64.81526988822704,63.2468990684805,1.312670417776616e-23,One-way analysis of means (not assuming equal variances)
