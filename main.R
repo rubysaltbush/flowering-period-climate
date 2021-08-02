@@ -44,3 +44,6 @@ rm(do_regression)
 source("scripts/analyses/woodiness_ttests.R") #tests of woody vs herbaceous species
 source("scripts/analyses/biome_anova.R")
 
+# Graphs
+source("scripts/graphs/maps.R") # maps
+source("scripts/graphs/histograms.R") # histograms by family and biome

@@ -7,13 +7,12 @@ site_species <- cache_csv("data_cache/site_species.csv", function(){
   dplyr::select(herbarium_determination:proportion, family, family_group,
                 monthsBinary:monthsCount, woodiness:woody, Jan:Dec,
                 site_prop_flowertime, flowertime_weight, species_weight)
-
-  #set levels for family_group to show in order of species richness
-  site_species$family_group <-
-    factor(site_species$family_group,
-           levels = c("Fabaceae", "Poaceae", "Myrtaceae", "Asteraceae", "Proteaceae",
-                      "Chenopodiaceae", "Cyperaceae", "Other families"))
   
   # combine species, traits and site level data
   site_species <- dplyr::left_join(site_species, sites, by = "site_unique")
 })
+
+#set levels for family_group to show in order of species richness
+site_species$family_group <- factor(site_species$family_group,
+         levels = c("Fabaceae", "Poaceae", "Myrtaceae", "Asteraceae", "Proteaceae",
+                    "Chenopodiaceae", "Cyperaceae", "Other families"))

@@ -54,3 +54,5 @@ site_species %>%
   colour_scales$biomecol +
   theme_pubr(legend = "right")
 ggsave("figures/Fig 4 mean weight spp flowering per biome per month.png", width = 14, height = 4)
+
+rm(anova)
