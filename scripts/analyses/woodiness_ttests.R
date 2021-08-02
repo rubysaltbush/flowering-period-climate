@@ -87,5 +87,3 @@ species_biome %>%
 ggsave("figures/Fig S3 flowering period by woodiness by biome.png", width = 13, height = 6)
 
 rm(species_biome, tresults, ttests)
-
-rm(ttests, tresults)
