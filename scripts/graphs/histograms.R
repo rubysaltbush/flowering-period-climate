@@ -9,7 +9,7 @@ site_species %>%
   theme_pubr(legend = "right") +
   xlab("Length of flowering period (months)") +
   ylab("Number of species")
-ggsave("figures/Fig 2 freq flowering periods in AusPlots species.png", width = 15, height = 6)
+ggsave("figures/Fig 2 freq flowering periods in AusPlots species.png", width = 10, height = 4)
 
 #frequency of flowering period lengths in ausplots species coloured by family, separated by biome
 #high species richness biomes with high fixed scale
