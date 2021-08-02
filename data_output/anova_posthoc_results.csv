@@ -1,16 +1,16 @@
 .y.,group1,group2,estimate,conf.low,conf.high,p.adj,p.adj.signif
 monthsCount_CWM,Deserts and Xeric Shrublands,"Mediterranean Forests, Woodlands and Scrub",-1.7698644031575874,-2.3796590291132547,-1.1600697772019202,1.12e-13,****
 monthsCount_CWM,Deserts and Xeric Shrublands,Montane Grasslands and Shrublands,-4.276523973557854,-5.105667053436749,-3.4473808936789596,7.93e-11,****
-monthsCount_CWM,Deserts and Xeric Shrublands,Temperate Broadleaf and Mixed Forest,-2.3010680184947416,-3.242565300639963,-1.3595707363495202,8.22e-7,****
+monthsCount_CWM,Deserts and Xeric Shrublands,Temperate Broadleaf and Mixed Forest,-2.3010680184947416,-3.2425653006399724,-1.3595707363495109,8.22e-7,****
 monthsCount_CWM,Deserts and Xeric Shrublands,"Temperate Grasslands, Savannas and Shrublands",0.11630041543955727,-1.2623321381358321,1.4949329690149467,1,ns
-monthsCount_CWM,Deserts and Xeric Shrublands,"Tropical and Subtropical Grasslands, Savannas and Shrublands",-0.6464747330776976,-1.1186810106122236,-0.17426845554317166,0.001,***
+monthsCount_CWM,Deserts and Xeric Shrublands,"Tropical and Subtropical Grasslands, Savannas and Shrublands",-0.6464747330776976,-1.1186810106125855,-0.17426845554280984,0.001,***
 monthsCount_CWM,"Mediterranean Forests, Woodlands and Scrub",Montane Grasslands and Shrublands,-2.5066595704002665,-3.402606345274263,-1.6107127955262701,5.13e-8,****
-monthsCount_CWM,"Mediterranean Forests, Woodlands and Scrub",Temperate Broadleaf and Mixed Forest,-0.5312036153371542,-1.5378005347354413,0.4753933040611329,0.612,ns
+monthsCount_CWM,"Mediterranean Forests, Woodlands and Scrub",Temperate Broadleaf and Mixed Forest,-0.5312036153371542,-1.5378005347354142,0.4753933040611058,0.612,ns
 monthsCount_CWM,"Mediterranean Forests, Woodlands and Scrub","Temperate Grasslands, Savannas and Shrublands",1.8861648185971447,0.464908424370964,3.3074212128233254,0.004,**
-monthsCount_CWM,"Mediterranean Forests, Woodlands and Scrub","Tropical and Subtropical Grasslands, Savannas and Shrublands",1.1233896700798898,0.5113219356053492,1.7354574045544302,4.58e-6,****
-monthsCount_CWM,Montane Grasslands and Shrublands,Temperate Broadleaf and Mixed Forest,1.9754559550631123,0.8607168926072974,3.0901950175189272,1.06e-4,***
+monthsCount_CWM,"Mediterranean Forests, Woodlands and Scrub","Tropical and Subtropical Grasslands, Savannas and Shrublands",1.1233896700798898,0.5113219356053591,1.7354574045544204,4.58e-6,****
+monthsCount_CWM,Montane Grasslands and Shrublands,Temperate Broadleaf and Mixed Forest,1.9754559550631123,0.8607168926072943,3.0901950175189303,1.06e-4,***
 monthsCount_CWM,Montane Grasslands and Shrublands,"Temperate Grasslands, Savannas and Shrublands",4.392824388997411,2.9058228514878097,5.879825926507013,9.91e-9,****
 monthsCount_CWM,Montane Grasslands and Shrublands,"Tropical and Subtropical Grasslands, Savannas and Shrublands",3.6300492404801563,2.799729389949868,4.4603690910104445,1.06e-9,****
-monthsCount_CWM,Temperate Broadleaf and Mixed Forest,"Temperate Grasslands, Savannas and Shrublands",2.417368433934299,0.866563578968857,3.9681732888997407,5.43e-4,***
-monthsCount_CWM,Temperate Broadleaf and Mixed Forest,"Tropical and Subtropical Grasslands, Savannas and Shrublands",1.654593285417044,0.7119185629799906,2.5972680078540975,1.59e-4,***
+monthsCount_CWM,Temperate Broadleaf and Mixed Forest,"Temperate Grasslands, Savannas and Shrublands",2.417368433934299,0.8665635789689026,3.9681732888996955,5.43e-4,***
+monthsCount_CWM,Temperate Broadleaf and Mixed Forest,"Tropical and Subtropical Grasslands, Savannas and Shrublands",1.654593285417044,0.7119185629799877,2.5972680078541,1.59e-4,***
 monthsCount_CWM,"Temperate Grasslands, Savannas and Shrublands","Tropical and Subtropical Grasslands, Savannas and Shrublands",-0.7627751485172549,-2.1421573778738257,0.6166070808393156,0.536,ns
