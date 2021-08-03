@@ -27,9 +27,9 @@ sites %>%
   geom_boxplot(width=0.1, color="black", alpha=0.2) +
   scale_y_continuous(breaks = seq(1, 12, by=1), limits=c(1,12)) +
   theme_pubr(legend = "none") + #gets rid of legend
-  coord_flip() + #this switches X and Y axis
+  coord_flip() + # switches X and Y axis
   xlab("") +
-  ylab("Community Weighted Mean length of flowering period (months)") +
+  ylab("Community weighted mean length of flowering period (months)") +
   colour_scales$biome +
   colour_scales$biomecol
 ggsave("figures/Fig 4 Length of flowering period by biome.png", width = 10, height = 3)
@@ -49,10 +49,10 @@ site_species %>%
   geom_point(aes(shape = Biome)) +
   geom_line() +
   scale_y_continuous(limits = c(0,1)) +
-  ylab("Mean proportion of species flowering per site") +
+  ylab("Mean proportion species flowering per plot") +
   xlab("Month of flowering") +
   colour_scales$biomecol +
   theme_pubr(legend = "right")
-ggsave("figures/Fig 4 mean weight spp flowering per biome per month.png", width = 14, height = 4)
+ggsave("figures/Fig 4 mean weight spp flowering per biome per month.png", width = 10, height = 4)
 
 rm(anova)
