@@ -44,7 +44,7 @@ ggplot(species_all, aes(y = eoo_aus, x = monthsCount)) +
   labs(title = paste("R² = ", signif(summary(speciesregressions$lmeoo_months)$r.squared, 2),
                      "    P = ", format.pval(summary(speciesregressions$lmeoo_months)$coef[2,4], eps = .001, digits = 2)))
 
-ggsave("figures/Fig 5 species flowering period vs eoo.png", width = 10, height = 6)
+ggsave("figures/Fig 5 species flowering period vs eoo.png", width = 5.6, height = 3.6)
 
 rm(regression_name, regressions_todo, speciesregressions, speciesregs, new_row, todo)
 
