@@ -47,4 +47,3 @@ ggplot(species_all, aes(y = eoo_aus, x = monthsCount)) +
 ggsave("figures/Fig 5 species flowering period vs eoo.png", width = 5.6, height = 3.6)
 
 rm(regression_name, regressions_todo, speciesregressions, speciesregs, new_row, todo)
-

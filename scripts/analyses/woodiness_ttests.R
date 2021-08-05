@@ -44,7 +44,6 @@ tresults <- data.frame(sapply(ttests, function(x) {
     p.value = x$p.value)
 }))
 tresults$rownames <- rownames(tresults)
-#CAN I GET NOBS AND ADD AS COLUMN??
 
 write_csv(tresults, "data_output/woodiness_ttest_results.csv")
 
@@ -85,5 +84,5 @@ species_biome %>%
   facet_wrap(~Biome) +
   scale_fill_viridis_d(direction = -1)
 ggsave("figures/Fig S3 flowering period by woodiness by biome.png", width = 13, height = 6)
-
+  
 rm(species_biome, tresults, ttests)
