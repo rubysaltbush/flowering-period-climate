@@ -85,59 +85,10 @@ site_species_unfiltered <- cache_csv("data_cache/site_species_unfiltered.csv", f
   site_species_unfiltered <- site_species_unfiltered %>%
     mutate(species_weight = percent_cover/species_cov)
   
-  #for plotting, good to know what the distribution of different features is
-  #between the dominant families (both by species richness and by cover). BUT
-  #to do this need to define "family_category", with top 7 families and all
-  #other families in an "other" category
-  #first get count of occurences of taxa in families across all sites
-  families <- as.data.frame(table(site_species_unfiltered$family))
-  colnames(families) <- c("family", "occurence")
-  #then sum together proportional cover (weight in CWM analyses) for families across all sites
-  fam2 <- aggregate(site_species_unfiltered$flowertime_weight, list(site_species_unfiltered$family), sum)
-  colnames(fam2) <- c("family", "sum_weight")
-  #then count number of species in each family included in data set
-  fam3 <- site_species_unfiltered %>%
-    dplyr::select(canonicalName, family) %>%
-    distinct() %>%
-    group_by(family) %>%
-    summarise(species_richness = n())
-  #join together
-  families <- families %>%
-    left_join(fam2, by = "family") %>%
-    left_join(fam3, by = "family")
-  rm(fam2, fam3)
-  #strong correlation but slight differences between top families for number of
-  #occurrences, cover across sites and species richness.
-  #assign families to a family_group, based on the top 7 families by each measure
-  for (i in 1:nrow(families)) {
-    if (families$family[i] %in% c("Poaceae", "Fabaceae", "Chenopodiaceae", "Myrtaceae",
-                                  "Asteraceae", "Proteaceae", "Cyperaceae")) {
-      families$family_group[i] <- families$family[i]
-    } else {
-      families$family_group[i] <- "Other families"
-    }
-  }
-  rm(i)
-  #set levels for family_group to show in order of species richness
-  families$family_group <- factor(families$family_group,
-                                  levels = c("Fabaceae", "Poaceae", "Myrtaceae",
-                                             "Asteraceae", "Proteaceae",
-                                             "Chenopodiaceae", "Cyperaceae",
-                                             "Other families"))
-  write_csv(families, "data_output/ausplots_families.csv")
-  
-  #join family_group back onto site_species_unfiltered by family
-  #first get rid of other columns
-  families <- families %>%
-    dplyr::select(family, family_group)
-  site_species_unfiltered <- site_species_unfiltered %>%
-    left_join(families, by = "family")
-  rm(families)
-  
   #add woodiness data to site_species_unfiltered
   site_species_unfiltered <- site_species_unfiltered %>%
     dplyr::left_join(species_woodiness, by = "canonicalName")
-  #check coverage of woodiness data - check again once sites subsetted???
+  #check coverage of woodiness data - check again once sites subsetted
   paste(sum(is.na(site_species_unfiltered$woody)), "observations missing woodiness data")
   
   site_species_unfiltered
