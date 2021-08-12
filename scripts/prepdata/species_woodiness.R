@@ -1,5 +1,8 @@
+# compile and cache woodiness values data, manually reconciled and entered from
+# AusTraits data and original sources for AusPlots species by RS
+
 species_woodiness <- cache_csv("data_cache/species_woodiness.csv", function() {
-  #read in woodiness data - from AusTraits but reconciled manually
+  #read in woodiness data
   species_woodiness <- read_csv("data_input/ausplots_woody_RS.csv")
   #add column scoring woody/non-woody (include semi-woody as woody)
   species_woodiness$woody <- species_woodiness$RS_value
