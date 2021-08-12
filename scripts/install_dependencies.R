@@ -3,14 +3,13 @@
 # options(pkgType="mac.binary") # may help if running on mac
 
 install.packages("Hmisc")      # weighted variance function wtd.var
-install.packages("devtools")   # install_github
-install.packages("ggnewscale") # mapping two scales on a map
+install.packages("devtools")   # install_github function
 install.packages("raster")     # loading .tif mask
-install.packages("rstatix")    # used in anova
-install.packages("sf")         # mapping
-install.packages("tidyverse")  # data functions
+install.packages("rstatix")    # for Games-Howell posthoc tests in ANOVA
+install.packages("sf")         # mapping simple features
+install.packages("tidyverse")  # data functions and syntax
 install.packages("rgdal")      # loading shapefiles
-install.packages("ggpubr")     # publication ready theme theme_pubr
+install.packages("ggpubr")     # publication ready theme theme_pubr for ggplots
 
 library(devtools)
 
