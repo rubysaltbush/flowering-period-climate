@@ -1,3 +1,6 @@
+# function to perform linear regressions on list of input data, export basic
+# scatter plots (with line if significant) of data and qqplots of residuals
+
 do_regression <- function(xdata, ydata, xlabel, ylabel, output_path) {
   lm_data <- lm(ydata ~ xdata)
   
@@ -14,8 +17,8 @@ do_regression <- function(xdata, ydata, xlabel, ylabel, output_path) {
   
   dev.off()
   
-  # Assuming residuals okay, plot data and add regression line to plot ONLY IF
-  # regression significant with Bonferroni correction
+  # assuming residuals okay, plot data and add regression line to plot only if
+  # regression significant
   
   png(output_path, width = 7, height = 7, units = 'in', res = 300)
   
@@ -29,7 +32,7 @@ do_regression <- function(xdata, ydata, xlabel, ylabel, output_path) {
        cex.main = 1
   )
   
-  if (summary(lm_data)$coefficients[2,4] < 0.05 / 10) {
+  if (summary(lm_data)$coefficients[2,4] < 0.05) {
     abline(lm_data)
   }
   

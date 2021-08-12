@@ -11,7 +11,7 @@ library(rgdal)
 library(ggpubr)
 
 # Options
-options(scipen = 300) # set scientific numbers only for huge numbers
+options(scipen = 300) # set scientific numbers only for very large numbers
 
 # Functions
 source("scripts/functions/cache_csv.R")
