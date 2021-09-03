@@ -161,6 +161,13 @@ for (regression_name in names(regressions_todo)) {
 write_csv(CWMregresults, "data_output/CWM_regression_results.csv")
 rm(regression_name, todo, regressions_todo, new_row)
 
+#multiple linear regression of significant climate variables
+#first check for collinearity among climate variables
+
+
+try <- lm(monthsCount_CWM ~ MAT + log10MAP + temp_predictability + prec_predictability, data = sites)
+summary(try)
+
 ##REGRESSION GRAPHS##
 # plot of CWM MAT - higher p value for CWM than SNC
 ggplot(sites, aes(x = MAT, y = monthsCount_CWM)) +
