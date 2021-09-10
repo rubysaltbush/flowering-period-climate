@@ -163,10 +163,18 @@ rm(regression_name, todo, regressions_todo, new_row)
 
 #multiple linear regression of significant climate variables
 #first check for collinearity among climate variables
+pairs(monthsCount_CWM ~ MAT + log10MAP + temp_predictability + prec_predictability, data = sites)
+cor(sites$MAT, sites$log10MAP, use = "complete.obs")
+cor(sites$MAT, sites$temp_predictability, use = "complete.obs")
+cor(sites$MAT, sites$prec_predictability, use = "complete.obs")
+cor(sites$log10MAP, sites$temp_predictability, use = "complete.obs")
+cor(sites$log10MAP, sites$prec_predictability, use = "complete.obs")
+cor(sites$temp_predictability, sites$prec_predictability, use = "complete.obs")
 
+# highest correlation 0.71 between log10MAP and prec_predictability. Think this is okay?
 
-try <- lm(monthsCount_CWM ~ MAT + log10MAP + temp_predictability + prec_predictability, data = sites)
-summary(try)
+multiple_regression <- lm(monthsCount_CWM ~ MAT + log10MAP + temp_predictability + prec_predictability, data = sites)
+summary(multiple_regression)
 
 ##REGRESSION GRAPHS##
 # plot of CWM MAT - higher p value for CWM than SNC
