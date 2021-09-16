@@ -10,6 +10,8 @@ install.packages("sf")         # mapping simple features
 install.packages("tidyverse")  # data functions and syntax
 install.packages("rgdal")      # loading shapefiles
 install.packages("ggpubr")     # publication ready theme theme_pubr for ggplots
+install.packages("GGally")     # ggplot compatible correlation plot function ggpairs
+install.packages("car")        # vif function to check for multicollinearity
 
 library(devtools)
 

@@ -163,18 +163,26 @@ rm(regression_name, todo, regressions_todo, new_row)
 
 #multiple linear regression of significant climate variables
 #first check for collinearity among climate variables
-pairs(monthsCount_CWM ~ MAT + log10MAP + temp_predictability + prec_predictability, data = sites)
+GGally::ggpairs(data = sites, columns = c(22, 25, 19, 16), 
+                columnLabels = c("Mean Annual Temperature (ºC)", 
+                                 "log10 Mean Annual Precipitation", 
+                                 "Temperature predictability", 
+                                 "Precipitation predictability")) + theme_pubr()
+ggsave("figures/Fig S3 Pairwise correlation plot.png", width = 13, height = 9.2)
+
 cor(sites$MAT, sites$log10MAP, use = "complete.obs")
 cor(sites$MAT, sites$temp_predictability, use = "complete.obs")
 cor(sites$MAT, sites$prec_predictability, use = "complete.obs")
 cor(sites$log10MAP, sites$temp_predictability, use = "complete.obs")
 cor(sites$log10MAP, sites$prec_predictability, use = "complete.obs")
 cor(sites$temp_predictability, sites$prec_predictability, use = "complete.obs")
-
-# highest correlation 0.71 between log10MAP and prec_predictability. Think this is okay?
-
+# correlations 0.07 - 0.71, below 0.8 so multicollinearity unlikely
+# perform multiple regression
 multiple_regression <- lm(monthsCount_CWM ~ MAT + log10MAP + temp_predictability + prec_predictability, data = sites)
 summary(multiple_regression)
+# duoble check for multicollinearity using Variance Inflation Factor (VIF)
+car::vif(multiple_regression)
+# VIF below 2.2 for all variables, no multicollinearity
 
 ##REGRESSION GRAPHS##
 # plot of CWM MAT - higher p value for CWM than SNC

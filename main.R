@@ -9,6 +9,8 @@ library(raster)
 library(rstatix)
 library(rgdal)
 library(ggpubr)
+library(GGally)
+library(car)
 
 # Options
 options(scipen = 300) # set scientific numbers only for very large numbers
