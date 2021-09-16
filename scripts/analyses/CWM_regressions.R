@@ -180,7 +180,7 @@ cor(sites$temp_predictability, sites$prec_predictability, use = "complete.obs")
 # perform multiple regression
 multiple_regression <- lm(monthsCount_CWM ~ MAT + log10MAP + temp_predictability + prec_predictability, data = sites)
 summary(multiple_regression)
-# duoble check for multicollinearity using Variance Inflation Factor (VIF)
+# double check for multicollinearity using Variance Inflation Factor (VIF)
 car::vif(multiple_regression)
 # VIF below 2.2 for all variables, no multicollinearity
 
