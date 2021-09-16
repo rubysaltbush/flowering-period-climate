@@ -25,6 +25,6 @@ ggplot() +
   scale_colour_viridis_b(name = "CWM length of flowering period (months)", breaks = seq(1, 12)) +
   theme_void() +
   guides(colour = guide_legend())
-ggsave("figures/Fig S4 AusPlots sites by CWM flowering period.png", width = 11, height = 6)
+ggsave("figures/Fig S5 AusPlots sites by CWM flowering period.png", width = 11, height = 6)
 
 rm(biome_bg)

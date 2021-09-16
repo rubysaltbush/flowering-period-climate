@@ -67,7 +67,7 @@ species_all %>%
                                     signif(mean(species_all$monthsCount[species_all$woodiness == "woody"]), 2)),
                                   ")", sep = "")) +
   theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14))
-ggsave("figures/Fig S3 flowering period by woodiness.png", width = 6, height = 8)
+ggsave("figures/Fig S4 flowering period by woodiness.png", width = 6, height = 8)
 
 #graph woodiness per biome
 species_biome %>%
@@ -83,6 +83,6 @@ species_biome %>%
   xlab("") +
   facet_wrap(~Biome) +
   scale_fill_viridis_d(direction = -1)
-ggsave("figures/Fig S3 flowering period by woodiness by biome.png", width = 13, height = 6)
+ggsave("figures/Fig S4 flowering period by woodiness by biome.png", width = 13, height = 6)
   
 rm(species_biome, tresults, ttests)
