@@ -198,7 +198,7 @@ ggplot(sites, aes(x = MAT, y = monthsCount_CWM)) +
   theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14)) +
   labs(title = paste("R² = ", signif(summary(CWMregressions$lmMATCWM)$r.squared, 2),
                      "    Pmax = ", format.pval(summary(CWMregressions$lmMATCWM)$coef[2,4], eps = .001, digits = 2)))
-ggsave("figures/Fig 3 CWM flowering period vs MAT with biomes.png", width = 10, height = 5)
+ggsave("figures/Fig 2 CWM flowering period vs MAT with biomes.png", width = 10, height = 5)
 
 # plot of CWM log10MAP - log10 transformation much better than raw values
 ggplot(sites, aes(x = log10MAP, y = monthsCount_CWM)) +
@@ -213,7 +213,7 @@ ggplot(sites, aes(x = log10MAP, y = monthsCount_CWM)) +
   theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14)) +
   labs(title = paste("R² = ", signif(summary(CWMregressions$lmlog10MAPCWM)$r.squared, 2),
                      "    Pmax = ", format.pval(summary(CWMregressions$lmlog10MAPSNC)$coef[2,4], eps = .001, digits = 2)))
-ggsave("figures/Fig 3 CWM flowering period vs log10MAP with biomes.png", width = 10, height = 5)
+ggsave("figures/Fig 2 CWM flowering period vs log10MAP with biomes.png", width = 10, height = 5)
 
 #pretty plot of CWM precipitation predictability
 ggplot(sites, aes(x = prec_predictability, y = monthsCount_CWM)) +
@@ -228,7 +228,7 @@ ggplot(sites, aes(x = prec_predictability, y = monthsCount_CWM)) +
   theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14)) +
   labs(title = paste("R² = ", signif(summary(CWMregressions$lmprecpredCWM)$r.squared, 2),
                      "    Pmax = ", format.pval(summary(CWMregressions$lmprecpredSNC)$coef[2,4], eps = .001, digits = 2)))
-ggsave("figures/Fig 3 CWM flowering period vs precipitation predictability with biomes.png", width = 10, height = 5)
+ggsave("figures/Fig 2 CWM flowering period vs precipitation predictability with biomes.png", width = 10, height = 5)
 
 #pretty plot of CWM temperature predictability
 ggplot(sites, aes(x = temp_predictability, y = monthsCount_CWM)) +
@@ -243,6 +243,6 @@ ggplot(sites, aes(x = temp_predictability, y = monthsCount_CWM)) +
   theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14)) +
   labs(title = paste("R² = ", signif(summary(CWMregressions$lmtemppredCWM)$r.squared, 2),
                      "    Pmax = ", format.pval(summary(CWMregressions$lmtemppredSNC)$coef[2,4], eps = .001, digits = 2)))
-ggsave("figures/Fig 3 CWM flowering period vs temperature predictability with biomes.png", width = 10, height = 5)
+ggsave("figures/Fig 2 CWM flowering period vs temperature predictability with biomes.png", width = 10, height = 5)
 
 rm(CWMregressions, CWMregresults)

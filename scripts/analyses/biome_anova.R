@@ -32,7 +32,7 @@ sites %>%
   ylab("Community weighted mean length of flowering period (months)") +
   colour_scales$biome +
   colour_scales$biomecol
-ggsave("figures/Fig 4 Length of flowering period by biome.png", width = 10, height = 3)
+ggsave("figures/Fig 3 Length of flowering period by biome.png", width = 10, height = 3)
 
 ##flowering month by month##
 ##all species##
@@ -53,6 +53,6 @@ site_species %>%
   xlab("Month of flowering") +
   colour_scales$biomecol +
   theme_pubr(legend = "right")
-ggsave("figures/Fig 4 mean weight spp flowering per biome per month.png", width = 10, height = 4)
+ggsave("figures/Fig 3 mean weight spp flowering per biome per month.png", width = 10, height = 4)
 
 rm(anova)
